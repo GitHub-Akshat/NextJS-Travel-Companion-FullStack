@@ -1,17 +1,24 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const SessionHomepage = () => {
+    const router = useRouter();
+    const [destination, setDestination] = useState('');
     const [price, setPrice] = useState(3000);
 
     const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPrice(Number(e.target.value));
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleDestinationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDestination(e.target.value);
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Submitted");
+        router.push(`/travel-essential-details?destination=${encodeURIComponent(destination)}`);
     };
 
     return (
@@ -26,28 +33,28 @@ const SessionHomepage = () => {
                 </div>
 
                 <div className="md:px-40 mt-24 ">
-                <form onSubmit={handleSubmit} className="flex flex-col font-semibold bg-white bg-opacity-50 rounded-lg lg:flex-row lg:space-x-20 items-center justify-between px-6 py-3">
-                    <label className="flex flex-col my-2 w-full">
-                    Search Your Destination
-                    <input type="city" className="mt-1 p-2 rounded text-black" placeholder="Enter destination" />
-                    </label>
-                    <label className="flex flex-col my-2 w-full">
-                    Select Your Date
-                    <input type="date" className="mt-1 p-2 rounded"/>
-                    </label>
-                    <label className="flex flex-col my-2 w-full">
-                        Max Price : &#8377; {price}
-                        <input 
-                            type="range" 
-                            min="3000" 
-                            max="50000" 
-                            value={price} 
-                            onChange={handlePriceChange} 
-                            className="mt-1 p-2 rounded text-black" 
-                        /> 
-                    </label>
-                    <button type="submit" className="my-4 p-2 bg-white text-black rounded">Search</button>
-                </form>
+                    <form onSubmit={handleSubmit} className="flex flex-col font-semibold bg-white bg-opacity-50 rounded-lg lg:flex-row lg:space-x-20 items-center justify-between px-6 py-3">
+                        <label className="flex flex-col my-2 w-full">
+                            Search Your Destination
+                            <input type="text" value={destination} onChange={handleDestinationChange} className="mt-1 p-2 rounded text-black" placeholder="Enter destination" />
+                        </label>
+                        <label className="flex flex-col my-2 w-full">
+                            Select Your Date
+                            <input type="date" className="mt-1 p-2 rounded"/>
+                        </label>
+                        <label className="flex flex-col my-2 w-full">
+                            Max Price : &#8377; {price}
+                            <input 
+                                type="range" 
+                                min="3000" 
+                                max="50000" 
+                                value={price} 
+                                onChange={handlePriceChange} 
+                                className="mt-1 p-2 rounded text-black" 
+                            /> 
+                        </label>
+                        <button type="submit" className="my-4 p-2 bg-white text-black rounded">Search</button>
+                    </form>
                 </div>
             </div>
         </div>
