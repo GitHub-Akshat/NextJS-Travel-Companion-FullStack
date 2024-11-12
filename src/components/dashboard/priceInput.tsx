@@ -6,10 +6,20 @@ import { useRouter } from "next/navigation";
 const SessionHomepage = () => {
     const router = useRouter();
     const [destination, setDestination] = useState('');
+    const [source, setSource] = useState('');
     const [price, setPrice] = useState(3000);
+    const [fromDate, setFromDate] = useState('');
 
     const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPrice(Number(e.target.value));
+    };
+
+    const handleSourceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSource(e.target.value);
+    };
+
+    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFromDate(e.target.value);
     };
 
     const handleDestinationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,8 +28,14 @@ const SessionHomepage = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        router.push(`/travel-essential-details?destination=${encodeURIComponent(destination)}`);
+    
+        if (!destination || !source || !fromDate) {
+            console.error("Missing one or more required parameters: destination, source, or date.");
+            return; 
+        }
+        router.push(`/travel-essential-details?destination=${encodeURIComponent(destination)}&source=${encodeURIComponent(source)}&date=${encodeURIComponent(fromDate)}`);
     };
+    
 
     return (
         <div className="relative h-screen w-full">
@@ -39,8 +55,12 @@ const SessionHomepage = () => {
                             <input type="text" value={destination} onChange={handleDestinationChange} className="mt-1 p-2 rounded text-black" placeholder="Enter destination" />
                         </label>
                         <label className="flex flex-col my-2 w-full">
+                            Your city
+                            <input type="text" value={source} onChange={handleSourceChange} className="mt-1 p-2 rounded text-black" placeholder="Enter destination" />
+                        </label>
+                        <label className="flex flex-col my-2 w-full">
                             Select Your Date
-                            <input type="date" className="mt-1 p-2 rounded"/>
+                            <input type="date" value={fromDate} onChange={handleDateChange} className="mt-1 p-2 rounded"/>
                         </label>
                         <label className="flex flex-col my-2 w-full">
                             Max Price : &#8377; {price}

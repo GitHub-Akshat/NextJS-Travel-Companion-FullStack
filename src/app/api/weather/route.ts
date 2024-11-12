@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
-    const destination = searchParams.get('destination') || 'Mumbai';
+    const destination = searchParams.get('destination') || '';
 
     const options = {
         method: 'GET',
