@@ -7,12 +7,7 @@ const SessionHomepage = () => {
     const router = useRouter();
     const [destination, setDestination] = useState('');
     const [source, setSource] = useState('');
-    const [price, setPrice] = useState(3000);
     const [fromDate, setFromDate] = useState('');
-
-    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPrice(Number(e.target.value));
-    };
 
     const handleSourceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSource(e.target.value);
@@ -56,24 +51,13 @@ const SessionHomepage = () => {
                         </label>
                         <label className="flex flex-col my-2 w-full">
                             Your city
-                            <input type="text" value={source} onChange={handleSourceChange} className="mt-1 p-2 rounded text-black" placeholder="Enter destination" />
+                            <input type="text" value={source} onChange={handleSourceChange} className="mt-1 p-2 rounded text-black" placeholder="Enter your city" />
                         </label>
                         <label className="flex flex-col my-2 w-full">
                             Select Your Date
                             <input type="date" value={fromDate} onChange={handleDateChange} className="mt-1 p-2 rounded"/>
                         </label>
-                        <label className="flex flex-col my-2 w-full">
-                            Max Price : &#8377; {price}
-                            <input 
-                                type="range" 
-                                min="3000" 
-                                max="50000" 
-                                value={price} 
-                                onChange={handlePriceChange} 
-                                className="mt-1 p-2 rounded text-black" 
-                            /> 
-                        </label>
-                        <button type="submit" className="my-4 p-2 bg-white text-black rounded">Search</button>
+                        <button type="submit" className="my-4 p-2 bg-neutral-300 text-black rounded hover:scale-105 active:scale-95">Search</button>
                     </form>
                 </div>
             </div>
