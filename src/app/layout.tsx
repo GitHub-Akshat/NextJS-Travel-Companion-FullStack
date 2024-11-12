@@ -15,8 +15,11 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "MY PROJECT",
-  description: "Kuch toh Hai Mera",
+  title: "Travel Companion",
+  description: "Your travel planner",
+  icons: {
+    icon: '/favicon.png',  
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{children: React.ReactNode;}>) 
